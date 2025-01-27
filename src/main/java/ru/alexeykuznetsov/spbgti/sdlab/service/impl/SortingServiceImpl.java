@@ -1,5 +1,8 @@
 package ru.alexeykuznetsov.spbgti.sdlab.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Service;
 import ru.alexeykuznetsov.spbgti.sdlab.service.SortingService;
 
 /**
@@ -7,15 +10,18 @@ import ru.alexeykuznetsov.spbgti.sdlab.service.SortingService;
  *
  * @author Alexey Kuznetsov
  */
+@Service
 public class SortingServiceImpl implements SortingService {
 
   @Override
-  public void sortArrayByMergeSort(int[] toSort) {
-    if (toSort == null || toSort.length <= 1) {
-      return;
+  public List<Integer> sortArrayByMergeSort(List<Integer> toSort) {
+    if (toSort == null || toSort.size() <= 1) { // Если список пустой или содержит 1 элемент, то он уже отсортирован
+      return new ArrayList<>(toSort); // Возвращаем копию, чтобы не менять оригинальный
     }
-    int[] tempArray = new int[toSort.length];
-    mergeSort(toSort, tempArray, 0, toSort.length - 1);
+    List<Integer> tempArray = new ArrayList<>(toSort); // Временный список для слияния
+    List<Integer> sortedList = new ArrayList<>(toSort); // Копия для сортировки
+    mergeSort(sortedList, tempArray, 0, sortedList.size() - 1);
+    return sortedList; // Возвращаем новый отсортированный список
   }
 
   /**
@@ -26,12 +32,12 @@ public class SortingServiceImpl implements SortingService {
    * @param left      - индекс начала подмассива
    * @param right     - индекс конца подмассива
    */
-  private void mergeSort(int[] arr, int[] tempArray, int left, int right) {
+  private void mergeSort(List<Integer> list, List<Integer> tempArray, int left, int right) {
     if (left < right) {
-      int mid = left + (right - left) / 2; // Находим середину массива
-      mergeSort(arr, tempArray, left, mid); // Рекурсивно сортируем левую половину
-      mergeSort(arr, tempArray, mid + 1, right); // Рекурсивно сортируем правую половину
-      merge(arr, tempArray, left, mid, right); // Сливаем отсортированные половины
+      int mid = left + (right - left) / 2; // Находим середину списка
+      mergeSort(list, tempArray, left, mid); // Рекурсивно сортируем левую половину
+      mergeSort(list, tempArray, mid + 1, right); // Рекурсивно сортируем правую половину
+      merge(list, tempArray, left, mid, right); // Сливаем отсортированные половины
     }
   }
 
@@ -39,40 +45,40 @@ public class SortingServiceImpl implements SortingService {
   /**
    * Метод для слияния двух отсортированных подмассивов.
    *
-   * @param arr       - массив для сортировки
-   * @param tempArray - временный массив для слияния
+   * @param list      - список для сортировки
+   * @param tempArray - временный список для слияния
    * @param left      - индекс начала левого подмассива
    * @param mid       - индекс середины (конец левого подмассива)
    * @param right     - индекс конца правого подмассива
    */
-  private void merge(int[] arr, int[] tempArray, int left, int mid, int right) {
+  private void merge(List<Integer> list, List<Integer> tempArray, int left, int mid, int right) {
     for (int i = left; i <= right; i++) {
-      tempArray[i] = arr[i]; // Копируем все элементы в tempArray
+      tempArray.set(i, list.get(i)); // Копируем все элементы в tempArray
     }
     int i = left; // Индекс для левой половины
     int j = mid + 1; // Индекс для правой половины
-    int k = left; // Индекс для результирующего массива
+    int k = left; // Индекс для результирующего списка
 
-    // Сливаем элементы из tempArray обратно в arr
+    // Сливаем элементы из tempArray обратно в list
     while (i <= mid && j <= right) {
-      if (tempArray[i] <= tempArray[j]) {
-        arr[k] = tempArray[i]; // Если элемент в левой половине меньше или равен
+      if (tempArray.get(i) <= tempArray.get(j)) {
+        list.set(k, tempArray.get(i)); // Если элемент в левой половине меньше или равен
         i++; // Увеличиваем индекс левой половины
       } else {
-        arr[k] = tempArray[j]; // Если элемент в правой половине меньше
+        list.set(k, tempArray.get(j)); // Если элемент в правой половине меньше
         j++; // Увеличиваем индекс правой половины
       }
-      k++; // Увеличиваем индекс результирующего массива
+      k++; // Увеличиваем индекс результирующего списка
     }
     // Копируем оставшиеся элементы из левой половины, если они есть
     while (i <= mid) {
-      arr[k] = tempArray[i];
+      list.set(k, tempArray.get(i));
       i++;
       k++;
     }
     // Копируем оставшиеся элементы из правой половины, если они есть (не нужно, если слияние выполнено правильно, но для надежности)
     while (j <= right) {
-      arr[k] = tempArray[j];
+      list.set(k, tempArray.get(j));
       j++;
       k++;
     }

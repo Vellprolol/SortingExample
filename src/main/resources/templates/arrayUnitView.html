@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Array View</title>
+  <style>
+      body {
+          font-family: sans-serif;
+          background-color: #f0f8ff;
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          margin: 0;
+      }
+
+      h2 {
+          text-align: center;
+          color: #007bff;
+          margin-bottom: 20px;
+      }
+
+      div {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          width: 400px;
+          max-width: 90%;
+          margin-bottom: 20px;
+      }
+
+      p {
+          margin-bottom: 10px;
+      }
+
+      p strong {
+          color: #007bff;
+          margin-right: 5px;
+      }
+
+      .array-id-container {
+          display: flex;
+          flex-direction: column;
+      }
+
+      h3 {
+          margin-top: 20px;
+          color: #007bff;
+      }
+
+
+      .button-container {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 10px;
+      }
+
+      form {
+          margin: 0;
+          width: 30%;
+      }
+
+
+      button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          width: 100%;
+          box-sizing: border-box;
+      }
+
+      button:hover {
+          background-color: #0056b3;
+      }
+
+
+      .back-link {
+          display: inline-block;
+          margin-top: 20px;
+          text-align: center;
+          background-color: #fff;
+          padding: 10px 15px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          transition: background-color 0.3s ease, color 0.3s ease;
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      .back-link:hover {
+          color: #0056b3;
+          background-color: #f0f8ff;
+      }
+  </style>
+</head>
+<body>
+<h2>Array Details</h2>
+
+<div th:if="${arrayUnit != null}">
+  <div class="array-id-container">
+    <p><strong>Array Unit ID:</strong></p>
+    <p><span th:text="${arrayUnit.id}"></span></p>
+    <p><strong>Unsorted Array:</strong></p>
+    <p><span th:text="${arrayUnit.unsortedData}"></span></p>
+  </div>
+  <div class="button-container">
+    <form method="post" action="/arrayUnit/sort">
+      <input type="hidden" name="id" th:value="${arrayUnit.id}">
+      <button type="submit">Sort Array</button>
+    </form>
+
+    <form method="post" action="/arrayUnit/delete">
+      <input type="hidden" name="id" th:value="${arrayUnit.id}">
+      <button type="submit">Delete</button>
+    </form>
+
+    <form method="get" action="/arrayUnit/edit">
+      <input type="hidden" name="id" th:value="${arrayUnit.id}">
+      <button type="submit">Edit</button>
+    </form>
+  </div>
+
+
+  <div th:if="${arrayUnit.getSortedData != null}">
+    <h3>Sorted Array:</h3>
+    <p th:text="${arrayUnit.getSortedData}"></p>
+  </div>
+</div>
+<div th:unless="${arrayUnit != null}">
+  <p>Array not found.</p>
+</div>
+<a href="/arrayUnit" class="back-link">Back to main page</a>
+</body>
+</html>

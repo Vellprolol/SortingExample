@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Array Unit</title>
+  <style>
+      body {
+          font-family: sans-serif;
+          background-color: #f0f8ff;
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          min-height: 100vh;
+          margin: 0;
+      }
+
+      h1 {
+          text-align: center;
+          color: #007bff;
+          margin-bottom: 30px;
+      }
+
+      .edit-container {
+          width: 700px; /* Увеличенная ширина */
+          max-width: 95%;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          margin-bottom: 30px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .form-group {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          margin-bottom: 15px;
+      }
+
+      .form-group label {
+          margin-bottom: 5px;
+          font-weight: bold;
+          color: #007bff;
+      }
+
+      .form-group input[type="text"] {
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          box-sizing: border-box;
+          flex: 1;
+          min-width: 500px; /* Минимальная ширина для поля ввода */
+      }
+      .button-container {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+      }
+
+      .button-container button{
+          background-color: #007bff;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          font-size: 1em;
+          text-align: center;
+          box-sizing: border-box;
+          margin-top: 10px;
+      }
+
+      .button-container button:hover {
+          background-color: #0056b3;
+      }
+
+      .back-link {
+          margin-top: 20px;
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      .back-link:hover{
+          text-decoration: underline;
+      }
+
+      footer {
+          text-align: center;
+          color: #888;
+          font-size: 0.8em;
+          margin-top: auto;
+      }
+  </style>
+</head>
+<body>
+<h1>Edit Array Unit</h1>
+
+<div class="edit-container">
+  <form method="post" th:action="@{/arrayUnit/edit}">
+    <input type="hidden" name="id" th:value="${arrayUnit.id}"/>
+
+    <div class="form-group">
+      <label for="unsortedData">Unsorted Array:</label>
+      <input type="text" id="unsortedData" name="unsortedData" th:value="${arrayUnit.unsortedDataString}" required/>
+    </div>
+
+    <div class="button-container">
+      <button type="submit">Save Changes</button>
+    </div>
+  </form>
+  <a href="/arrayUnit" class="back-link">Back to main page</a>
+</div>
+<footer>Developed by Alexey Kuznetsov</footer>
+</body>
+</html>

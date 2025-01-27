@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Array Filler</title>
+  <style>
+      body {
+          font-family: sans-serif;
+          background-color: #f0f8ff; /* Light blue background */
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          margin: 0;
+      }
+
+      h2 {
+          text-align: center;
+          color: #007bff;
+          margin-bottom: 20px;
+      }
+
+      form {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          width: 400px;
+          max-width: 90%;
+      }
+
+      .radio-group {
+          display: flex;
+          align-items: center; /* Align items vertically */
+          margin-bottom: 10px;
+          justify-content: center;
+      }
+
+      .radio-group input[type="radio"] {
+          margin-right: 5px;
+          vertical-align: middle; /* Align radio button vertically */
+      }
+
+      .radio-group label {
+          margin-right: 20px;
+          margin-top: 7px;
+          font-weight: 500; /* Make label text slightly bolder */
+          vertical-align: middle; /* Align label vertically */
+      }
+      .radio-group input[type="radio"] + label {
+          display: inline-block;
+          line-height: 1.2;
+      }
+
+      input[type="radio"]:checked + label{
+          color: #008080;
+      }
+
+
+      #manualInputDiv, #randomInputDiv {
+          margin-bottom: 15px;
+      }
+
+      label {
+          display: block;
+          margin-bottom: 5px;
+          color: #007bff;
+      }
+
+      input[type="text"], input[type="number"] {
+          width: calc(100% - 22px);
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          box-sizing: border-box;
+      }
+
+      button {
+          background-color: #0069d9; /* Slightly darker blue */
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+          background-color: #0056b3;
+      }
+  </style>
+</head>
+<body>
+<h2>Choose Array Fill Method:</h2>
+<form method="post" action="/arrayUnit/create" th:object="${arrayUnitDto}">
+  <div class="radio-group">
+    <input type="radio" id="manual" name="fillerStrategy" value="MANUAL" onclick="showManualInput()" checked th:field="*{fillerStrategy}">
+    <label for="manual">Manual Input</label>
+
+    <input type="radio" id="random" name="fillerStrategy" value="RANDOM" onclick="showRandomInput()" th:field="*{fillerStrategy}" checked="checked">
+    <label for="random">Random Generation</label>
+  </div>
+
+  <div id="manualInputDiv">
+    <label for="manualInput">Enter Array (comma separated):</label>
+    <input type="text" id="manualInput" name="manualInput" th:field="*{unsortedData}">
+  </div>
+
+  <div id="randomInputDiv" style="display: none;">
+    <label for="size">Array Size:</label>
+    <input type="number" id="size" name="size" th:field="*{arraySize}">
+    <label for="min">Minimum Value:</label>
+    <input type="number" id="min" name="min" th:field="*{minElement}">
+    <label for="max">Maximum Value:</label>
+    <input type="number" id="max" name="max" th:field="*{maxElement}">
+  </div>
+  <br>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  function showManualInput() {
+    document.getElementById('manualInputDiv').style.display = 'block';
+    document.getElementById('randomInputDiv').style.display = 'none';
+  }
+
+  function showRandomInput() {
+    document.getElementById('manualInputDiv').style.display = 'none';
+    document.getElementById('randomInputDiv').style.display = 'block';
+  }
+</script>
+</body>
+</html>

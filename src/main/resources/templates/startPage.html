@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Array Unit App</title>
+  <style>
+      body {
+          font-family: sans-serif;
+          background-color: #f0f8ff;
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          margin: 0;
+      }
+
+      h1 {
+          text-align: center;
+          color: #007bff;
+          margin-bottom: 30px;
+      }
+
+      .button-container {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-bottom: 30px;
+      }
+
+      .app-button {
+          background-color: #007bff;
+          color: white;
+          padding: 20px 30px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          font-size: 1.2em;
+          text-decoration: none;
+          display: inline-block;
+          min-width: 200px;
+          text-align: center;
+      }
+
+      .app-button:hover {
+          background-color: #0056b3;
+      }
+
+      .app-form {
+          margin: 0;
+          display: none; /* Initially hide the form */
+      }
+      .app-form-visible {
+          display: inline-block; /* Initially hide the form */
+      }
+      .app-form label {
+          display: block;
+          margin-bottom: 5px;
+          color: #007bff;
+      }
+
+      .app-form input {
+          width: calc(100% - 22px);
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          box-sizing: border-box;
+      }
+
+      .app-button-form {
+          background-color: #007bff;
+          color: white;
+          padding: 20px 30px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          font-size: 1.2em;
+          min-width: 200px;
+          text-align: center;
+          display: inline-block;
+          box-sizing: border-box;
+      }
+
+      .app-button-form:hover {
+          background-color: #0056b3;
+      }
+
+      footer {
+          text-align: center;
+          color: #888;
+          font-size: 0.8em;
+          margin-top: auto;
+      }
+  </style>
+</head>
+<body>
+<h1>Welcome to Array Unit Application!</h1>
+
+<div class="button-container">
+  <a href="/arrayUnit/prepare" class="app-button">Create Array Unit</a>
+  <button onclick="showForm()" class="app-button">Go to Array Unit</button>
+  <a href="/arrayUnit/all" class="app-button">View all Array Units</a>
+</div>
+<form method="post" action="/arrayUnit/viewInfo" class="app-form" id="arrayUnitForm">
+  <label for="arrayId">Enter Array Unit ID:</label>
+  <input type="text" name="id" id="arrayId" required>
+  <button type="submit" class="app-button-form">Submit</button>
+</form>
+
+<footer>Developed by Alexey Kuznetsov</footer>
+
+<script>
+  function showForm() {
+    const form = document.getElementById('arrayUnitForm');
+    form.classList.add('app-form-visible')
+  }
+</script>
+
+</body>
+</html>

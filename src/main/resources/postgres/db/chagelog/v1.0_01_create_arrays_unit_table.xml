@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd" objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+  <changeSet id="create_array_units_table" author="Alexey Kuznetsov">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="array_units"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="array_units" remarks="Таблица для хранения пользовательских данных">
+      <column name="id" type="UUID" remarks="Идентификатор">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="${prefix}_employee_request_dsf_type_pk"/>
+      </column>
+      <column name="unsorted_data" type="VARCHAR" remarks="Неотсортированные пользовательские данные"/>
+      <column name="sorted_data" type="VARCHAR" remarks="Отсортированные пользовательские данные"/>
+    </createTable>
+
+    <addNotNullConstraint tableName="array_units" columnName="unsorted_data"/>
+  </changeSet>
+
+</databaseChangeLog>

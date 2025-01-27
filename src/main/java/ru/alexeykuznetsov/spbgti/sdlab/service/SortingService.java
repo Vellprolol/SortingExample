@@ -1,5 +1,7 @@
 package ru.alexeykuznetsov.spbgti.sdlab.service;
 
+import java.util.List;
+
 /**
  * Сервис для сортировки массива.
  *
@@ -10,7 +12,8 @@ public interface SortingService {
   /**
    * Метод для сортировки переданного массива при помощи метода сортировки MergeSort.
    *
-   * @param toSort - массив для сортировки
+   * @param toSort - список для сортировки
+   * @return отсортированный список
    */
-  void sortArrayByMergeSort(int[] toSort);
+  List<Integer> sortArrayByMergeSort(List<Integer> toSort);
 }

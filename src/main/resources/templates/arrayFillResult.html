@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Array Fill Result</title>
+  <style>
+      body {
+          font-family: sans-serif;
+          background-color: #f0f8ff;
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          margin: 0;
+      }
+
+      h2 {
+          text-align: center;
+          color: #007bff;
+          margin-bottom: 20px;
+      }
+
+      .container {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          width: 400px;
+          max-width: 90%;
+          margin-bottom: 20px;
+          text-align: center;
+      }
+
+      p {
+          margin-bottom: 10px;
+          color: #007bff;
+      }
+
+      form {
+          margin-bottom: 20px;
+      }
+
+
+      button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          width: 100%;
+          box-sizing: border-box;
+
+      }
+
+      button:hover {
+          background-color: #0056b3;
+      }
+
+      .back-link {
+          display: inline-block;
+          margin-top: 20px;
+          text-align: center;
+          background-color: #fff;
+          padding: 10px 15px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          transition: background-color 0.3s ease, color 0.3s ease;
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      .back-link:hover {
+          color: #0056b3;
+          background-color: #f0f8ff;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Array Saved!</h2>
+  <p>Array ID: <span th:text="${arrayId}"></span></p>
+
+  <form method="post" action="/arrayUnit/viewInfo">
+    <input type="hidden" name="id" th:value="${arrayId}">
+    <button type="submit">Go to array unit</button>
+  </form>
+
+
+  <a href="/arrayUnit/prepare" class="back-link">Continue creating</a>
+  <a href="/arrayUnit" class="back-link">Back to main page</a>
+</div>
+</body>
+</html>
